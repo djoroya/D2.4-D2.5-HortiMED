@@ -1,0 +1,8 @@
+clear
+
+load('CS3_8_sysclima_clean.mat')
+
+ids = arrayfun(@(i)TableSeries(ds_cell{i}),1:26);
+%%
+ShowData(ids ...
+ )

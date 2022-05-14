@@ -11,43 +11,64 @@ end
 %%
 ids = arrayfun(@(i)TableSeries(ds_cell{i}),1:26);
 %%
-clf
+close all
+fig = figure('unit','norm','pos',[0 0 0.6 0.5])
 jds = subselect_date(ids(6),[datetime('08-Jan-2017') datetime('20-Jan-2017')]);
 
-t = jds.DateTime
+t = jds.DateTime;
 sty = {'LineWidth',2};
 
 subplot(4,1,1)
 hold on
+grid on
 plot(t,jds.DataSet.HRInt,sty{:})
 plot(t,jds.DataSet.MaxHR,sty{:})
 plot(t,jds.DataSet.HRExt,sty{:})
+ylabel('Humidity (%)')
 yyaxis right
-plot(t,jds.DataSet.EstadoCenitalE,sty{:})
-legend('HRInt','MaxHR','HRExt','Windows','Location','bestoutside')
+plot(t,jds.DataSet.EstadoCenitalE,sty{:},'LineStyle','--','LineWidth',1,'color','k')
+ylabel('Windows (%)')
+
+legend('HRInt','MaxHR','HRExt','Windows','Location','best')
 %
 subplot(4,1,2)
 hold on
+grid on
+
 plot(t,jds.DataSet.Text,sty{:})
 plot(t,jds.DataSet.TVentilacin,sty{:})
 plot(t,jds.DataSet.Tinv,sty{:})
+ylabel('Temperature (ºC)')
+
 yyaxis right
-plot(t,jds.DataSet.EstadoCenitalE,sty{:})
+plot(t,jds.DataSet.EstadoCenitalE,sty{:},'LineStyle','--','LineWidth',1,'color','k')
 %
-legend('Text','Tven','Tinv','Windows','Location','bestoutside')
+ylabel('Windows (%)')
+
+legend('Text','Tven','Tinv','Windows','Location','best')
 
 subplot(4,1,3)
 hold on
+grid on
+
 plot(t,jds.DataSet.RadExt,sty{:})
 plot(t,jds.DataSet.RadInt,sty{:})
-yyaxis right
+ylabel('Radiation (W/m^2)')
 
-plot(t,jds.DataSet.EstadoPant1,sty{:})
-legend('RadExt','RadInt','Pant','Location','bestoutside')
+yyaxis right
+ylabel('Screen (%)')
+
+    plot(t,jds.DataSet.EstadoPant1,sty{:},'LineStyle','--','LineWidth',1,'color','k')
+legend('RadExt','RadInt','Pant','Location','best')
 
 %
 subplot(4,1,4)
 plot(t,jds.DataSet.Vviento,sty{:})
-legend('Wind','Location','bestoutside')
+legend('Wind','Location','best')
+ylabel('Wind (m/s)')
 
+grid on
 %%
+r = which('P413_SysClima_script');
+r = replace(r,'P413_SysClima_script.m','');
+print(fig,fullfile(r,'P413_1.png'),'-dpng')

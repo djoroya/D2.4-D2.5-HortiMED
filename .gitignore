@@ -1,2 +1,5 @@
 src/dev/*
 *.asv
+slprj/*
+slprj*
+*.autosave

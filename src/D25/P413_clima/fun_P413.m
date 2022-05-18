@@ -11,13 +11,14 @@ end
 ids = arrayfun(@(i)TableSeries(ds_cell{i}),1:26);
 %%
 close all
-fig = figure('unit','norm','pos',[0 0 0.6 1])
+fig = figure('unit','norm','pos',[0 0 0.6 1]);
+uip = uipanel('Parent',fig,'unit','norm','pos',[-0.075 -0.05 1.1 1+2*0.05])
 jds = subselect_date(ids(idx),DateTimeInterval);
 
 t = jds.DateTime;
 sty = {'LineWidth',2};
 
-subplot(4,1,1)
+subplot(4,1,1,'Parent',uip)
 hold on
 grid on
 plot(t,jds.DataSet.HRInt,sty{:})
@@ -30,7 +31,7 @@ ylabel('Windows (%)')
 
 legend('HRInt','MaxHR','HRExt','Windows','Location','best')
 %
-subplot(4,1,2)
+subplot(4,1,2,'Parent',uip)
 hold on
 grid on
 
@@ -46,7 +47,7 @@ ylabel('Windows (%)')
 
 legend('Text','Tven','Tinv','Windows','Location','best')
 
-subplot(4,1,3)
+subplot(4,1,3,'Parent',uip)
 hold on
 grid on
 
@@ -57,11 +58,11 @@ ylabel('Radiation (W/m^2)')
 yyaxis right
 ylabel('Screen (%)')
 
-    plot(t,jds.DataSet.EstadoPant1,sty{:},'LineStyle','--','LineWidth',1,'color','k')
+plot(t,jds.DataSet.EstadoPant1,sty{:},'LineStyle','--','LineWidth',1,'color','k')
 legend('RadExt','RadInt','Pant','Location','best')
 
 %
-subplot(4,1,4)
+subplot(4,1,4,'Parent',uip)
 plot(t,jds.DataSet.Vviento,sty{:})
 legend('Wind','Location','best')
 ylabel('Wind (m/s)')

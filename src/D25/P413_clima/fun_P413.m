@@ -11,7 +11,7 @@ end
 ids = arrayfun(@(i)TableSeries(ds_cell{i}),1:26);
 %%
 close all
-fig = figure('unit','norm','pos',[0 0 0.6 0.5])
+fig = figure('unit','norm','pos',[0 0 0.5 0.7])
 jds = subselect_date(ids(idx),DateTimeInterval);
 
 t = jds.DateTime;

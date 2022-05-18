@@ -3,3 +3,5 @@ src/dev/*
 slprj/*
 slprj*
 *.autosave
+.DS_Store
+*.slxc

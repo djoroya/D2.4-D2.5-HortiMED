@@ -17,12 +17,13 @@ subplot(2,1,1)
 hold on
 plot(ids.DateTime,ids.RadExt,'LineWidth',2)
 plot(ids.DateTime,ids.RadInt,'LineWidth',2,'LineStyle','--')
+ylabel('Radiation [W/m^2]')
+
 yyaxis right
 plot(ids.DateTime,ids.EstadoPant1,'LineWidth',2)
-
+ylabel('Windows [%]')
 xlim([datetime('14-Apr-2019') datetime('23-Apr-2019')])
 grid on
-title('$Radiation [W/m^2]$','Interpreter','latex','FontSize',14)
 legend('R_e','R_i','Screen')
 subplot(2,1,2)
 hold on

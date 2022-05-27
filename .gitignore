@@ -5,3 +5,7 @@ slprj*
 *.autosave
 .DS_Store
 *.slxc
+*.c
+*.h
+*_rtw*
+*.original

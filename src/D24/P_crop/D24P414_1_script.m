@@ -15,6 +15,7 @@ load('CS3_2_ExteriorClima.mat')
 %%
 t0 = datetime("15-Feb-"+ds_crop.DateTime(1).Year);
 tend = ds_crop.DateTime(end);
+tend = tend - days(150);
 ind_b = logical((ds.DateTime > t0).*(ds.DateTime < tend));
 ods = ds(ind_b,:);
 ids = ods;
@@ -326,7 +327,7 @@ plot(r.tout,Toptmin,'LineWidth',2,'LineStyle','-.')
 %yline(10,'LineWidth',2,'LineStyle','--')
 %yline(20,'LineWidth',2,'LineStyle','-.')
 
-legend('T_h','T_{air}','T_{ext}','T_{min}^{opt}','T_{min}','FontSize',FontSize)
+legend('T_{air}','T_{h}','T_{ext}','T_{min}^{opt}','T_{min}','FontSize',FontSize)
 
 xlim([0 7])
 xlabel('days')

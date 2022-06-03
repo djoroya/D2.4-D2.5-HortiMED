@@ -36,14 +36,14 @@ r = sim('P413_1_model');
 %%
 IC = r.logsout.getElement('Indoor Climate');
 IC_st = parseIndoorClimate(IC,r.tout);
-% %%
-% Ti = IC_st.Temp.Tair;
-% Hi = IC_st.Gas.HRInt;
-% %
-% figure('unit','norm','pos',[0.5 0.5 0.5 0.5])
-% %
-% hold on
-% ssel = 1:4:length(ids.Tinv);
-% plot(r.tout,Ti-273.15)
-% plot(tspan(ssel),ids.Tinv(ssel),'o')
+%%
+Ti = IC_st.Temp.Tair;
+Hi = IC_st.Gas.HRInt;
+%
+figure('unit','norm','pos',[0.5 0.5 0.5 0.5])
+%
+hold on
+ssel = 1:4:length(ids.Tinv);
+plot(r.tout,Ti-273.15)
+plot(tspan(ssel),ids.Tinv(ssel),'o')
 %%

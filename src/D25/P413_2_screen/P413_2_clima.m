@@ -43,10 +43,27 @@ p_ic.minWindows = params(7).Value;
 gamma = 0;
 beta  = 0;
 %%
+path_model = 'P413_2_model/Subsystem/Climate Model';
+BlockDialogParameters = get_param(path_model,'DialogParameters');
+
+for inamevar = fieldnames(BlockDialogParameters)'
+    try
+        value = p_ic.(inamevar{:});
+        set_param(path_model,inamevar{:},"p_ic."+inamevar{:}+"")
+
+    catch
+        value = x0_ic.(inamevar{:});
+        set_param(path_model,inamevar{:},"x0_ic."+inamevar{:}+"")
+    end
+    
+end
+
 %% Datos de entrenamiento; 
 Ti = ids.Tinv + 273.15;
 Hi = ids.HRInt;
 Ri = ids.RadInt;
+
+%
 
 set_param('P413_2_model','StopTime','tspan(end)')
 r = sim('P413_2_model');

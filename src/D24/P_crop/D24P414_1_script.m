@@ -84,7 +84,7 @@ HP.c   = 5e-10;
 
 HP.power = 6e7;
 
-x0_H = heater_ic;
+%x0_H = heater_ic;
 
 %% Tomamo los parametros estimados en P413_1
 load('P413_1_model_spesession')
@@ -94,7 +94,7 @@ AR = params(1).Value;
 %%
 
 %%
-x0_ic = climate_ic;
+%x0_ic = climate_ic;
 p_ic = climate_p;
 p_ic.T_ss = params(2).Value;
 p_ic.A_c = params(3).Value;
@@ -138,12 +138,12 @@ scr_p.beta = beta;
 scr_p.gamma_max = gamma;
 %%
 crop_params = crop_p;
-x0_crop = crop_ic;
+%x0_crop = crop_ic;
 %%
-x0_fruit = fruit_ic;
+%x0_fruit = fruit_ic;
 params_fruit = fruit_p;
 %%
-x0_substrate = substrate_ic;
+%x0_substrate = substrate_ic;
 substrate_params = substrate_p;
 %%
 BuildBusFlow;

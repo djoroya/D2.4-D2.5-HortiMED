@@ -126,17 +126,30 @@ path_crop = 'P414_1_model02/Crop Grow';
 
 setpp(path_crop,'crop_params',crop_params)
 %%
+path_crop1 = 'P414_1_model02/Crop Grow1';
+
+setpp(path_crop1,'crop_params',crop_params)
+
+%%
 path_fruit = 'P414_1_model02/Fruit Partitioning';
 
 setpp(path_fruit,'params_fruit',params_fruit)
+%%
+path_fruit1 = 'P414_1_model02/Fruit Partitioning1';
+
+setpp(path_fruit1,'params_fruit',params_fruit)
 %%
 path_subs = 'P414_1_model02/Substrate Bag';
 
 setpp(path_subs,'substrate_params',substrate_params)
 %%
+irrigation_params = irrigation_p;
+path_irrig = 'P414_1_model02/Ferrtirrigation Controler';
+setpp(path_irrig,'irrigation_params',irrigation_params)
 
 %%
-r = sim('P414_1_model02');
+%%
+    r = sim('P414_1_model02');
 %%
 C = r.logsout.getElement('Control');
 C = parseIndoorClimate(C,r.tout);
@@ -145,44 +158,44 @@ IC = parseIndoorClimate(r.logsout.getElement('Indoor Climate'),r.tout);
 %%
 CROP = parseIndoorClimate(r.logsout.getElement('Crop'),r.tout);
 
-SUBS = parseSubstrate(r.logsout.getElement('Subs'),r.tout)
-FERTI = parseFertirrigation(r.logsout.getElement('Ferti'),r.tout)
+SUBS = parseSubstrate(r.logsout.getElement('Subs'),r.tout);
+FERTI = parseFertirrigation(r.logsout.getElement('Ferti'),r.tout);
 %%
 
-plot(r.tout,CROP.Tsum)
+% plot(r.tout,CROP.Tsum)
 %% Water
 Days = days(r.tout) + ids.DateTime(1);
 
 
-sty = {'LineWidth',2}
-clf 
-subplot(3,1,1)
-hold on
-plot(Days,CROP.Water.WaterState.VegWater,sty{:})
-plot(Days,CROP.WC,sty{:})
-legend('Content','Water Capacity')
-grid on
-ylabel('kg\{H_2O\}/m^2')
-
-subplot(3,1,2)
-hold on
-plot(Days,CROP.Water.WaterFlows.WaterDemand,sty{:});
-plot(Days,CROP.Water.WaterFlows.WaterUptake,sty{:});
-plot(Days,FERTI.f,sty{:});
-plot(Days,SUBS.Drainge.f,sty{:})
-
-legend('Demand','Uptake','Irrigation','Drainge')
-grid on
-ylabel('kg\{H_2O\}/(sm^2)')
-
-subplot(3,1,3)
-
-plot(Days,CROP.Water.WaterFlows.MW_QT,sty{:});
-legend('Transpiration')
-ylabel('kg\{H_2O\}/(sm^2)')
-%xlim([0 1])
-grid on
-xlabel('days')
+% sty = {'LineWidth',2}
+% clf 
+% subplot(3,1,1)
+% hold on
+% plot(Days,CROP.Water.WaterState.VegWater,sty{:})
+% plot(Days,CROP.WC,sty{:})
+% legend('Content','Water Capacity')
+% grid on
+% ylabel('kg\{H_2O\}/m^2')
+% 
+% subplot(3,1,2)
+% hold on
+% plot(Days,CROP.Water.WaterFlows.WaterDemand,sty{:});
+% plot(Days,CROP.Water.WaterFlows.WaterUptake,sty{:});
+% plot(Days,FERTI.f,sty{:});
+% plot(Days,SUBS.Drainge.f,sty{:})
+% 
+% legend('Demand','Uptake','Irrigation','Drainge')
+% grid on
+% ylabel('kg\{H_2O\}/(sm^2)')
+% 
+% subplot(3,1,3)
+% 
+% plot(Days,CROP.Water.WaterFlows.MW_QT,sty{:});
+% legend('Transpiration')
+% ylabel('kg\{H_2O\}/(sm^2)')
+% %xlim([0 1])
+% grid on
+% xlabel('days')
 %%
 plot(ds_crop.DateTime,ds_crop.MatureFruit)
 
@@ -190,36 +203,14 @@ plot(ds_crop.DateTime,ds_crop.MatureFruit)
 Tomato = r.logsout.getElement('Tomato').Values.Data;
 %%
 crop_params = crop_p;
-clf
-hold on
-plot(Days,Tomato/(0.04));
-plot(ds_crop.DateTime,ds_crop.MatureFruit/crop_params.A_v)
-legend('sim','real')
-
-
-%% 
-figure('color','w','unit','norm','Pos',[0 0 0.7 0.5])
-clf
-hold on
-%
-%
-sty= {'LineStyle','-','Linewidth',1}
-ax = plot(Days,IC.Temp.Tair-273.15,sty{:})
-plot(ids.DateTime,ids.temp-273.15,sty{:},'LineStyle','--')
-ylabel('Temperature [ºC]')
-%xlim([datetime('01-Mar-2018') datetime('10-Mar-2018') ])
-
-ax.Parent.FontSize = 12
-legend('T_{air}','T_{ext}')
-grid on
 
 %%
 name_params = {};
 %
 
 
-subnames = {"clima"            ,'heater'  ,'screen'  ,'crop'    ,'tomato'   , 'subtrate' ,'windows'};
-paths    = {path_climate_model ,path_heat ,path_src  ,path_crop ,path_fruit ,path_subs   ,path_win};
+subnames = {"clima"            ,'heater'  ,'screen'  ,'crop'    ,'tomato'   , 'subtrate' ,'windows','irrigation','crop','tomato'};
+paths    = {path_climate_model ,path_heat ,path_src  ,path_crop ,path_fruit ,path_subs   ,path_win ,path_irrig,path_crop1,path_fruit1};
 iter = 0;
 for isub = subnames 
     iter = iter + 1;
@@ -264,7 +255,6 @@ BlockDialogParameters = get_param(path_model,'DialogParameters');
 for inamevar = fieldnames(BlockDialogParameters)'
         set_param(path_model,inamevar{:},params_name+"."+inamevar{:}+"")
         values = params.(inamevar{:});
-
 end
 
 end

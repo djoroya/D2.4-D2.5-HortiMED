@@ -21,7 +21,7 @@ t0 = ods.DateTime(1);
 tspan = days(ods.DateTime - t0);
 %
 EC = [];
-EC.signals.values = [ods.temp ods.RadCloud ods.humidity ods.wind_speed];
+EC.signals.values = [ods.temp ods.RadCloud ods.wind_speed ods.humidity ];
 EC.signals.dimensions = 4;
 EC.time = tspan;
 
@@ -101,6 +101,6 @@ ds_control = array2table(permute(rt_yout.signals(4).values,[1 2 3]),'VariableNam
 %%
 clf
 hold on
-plot(rt_tout,ds_clima.Temp_Tair - 273.15,'.-')
-plot(rt_tout,ds_clima.Temp_Tcover - 273.15)
-plot(rt_tout,ds_clima.Temp_Tsoil - 273.15)
+plot(rt_tout,ds_clima.Temp__Tair - 273.15,'.-')
+plot(rt_tout,ds_clima.Temp__Tcover - 273.15)
+plot(rt_tout,ds_clima.Temp__Tsoil - 273.15)
